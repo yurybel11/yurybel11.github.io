@@ -3,14 +3,17 @@ const themeBtn = document.querySelector(".theme-toggle");
 const menuBtn = document.querySelector(".menu-toggle");
 const links = document.querySelector(".nav-links");
 
-const savedTheme = localStorage.getItem("theme") ||
+function readTheme() {
+  try { return localStorage.getItem("theme"); } catch { return null; }
+}
+const savedTheme = readTheme() ||
   (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 setTheme(savedTheme);
 
 function setTheme(theme) {
   root.dataset.theme = theme;
   themeBtn.innerHTML = theme === "dark" ? "&#9728;" : "&#9790;";
-  localStorage.setItem("theme", theme);
+  try { localStorage.setItem("theme", theme); } catch {}
 }
 themeBtn.addEventListener("click", () => setTheme(root.dataset.theme === "dark" ? "light" : "dark"));
 
