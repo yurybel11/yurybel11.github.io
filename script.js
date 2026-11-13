@@ -21,7 +21,10 @@ menuBtn.addEventListener("click", () => {
   const open = links.classList.toggle("open");
   menuBtn.setAttribute("aria-expanded", open);
 });
-links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
+links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  links.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded", "false");
+}));
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
